@@ -22,15 +22,6 @@ var __importStar = (this && this.__importStar) || function (mod) {
     __setModuleDefault(result, mod);
     return result;
 };
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -38,28 +29,28 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.showapitodo = exports.api = void 0;
 const tsxt = __importStar(require("./tsxt"));
 const createError_1 = __importDefault(require("../error/createError"));
-const api = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+const api = async (req, res, next) => {
     try {
         const { name } = req.body;
         console.log(name);
         if (!name || typeof name !== "string") {
             return (0, createError_1.default)("Incorrect name", 400);
         }
-        yield tsxt.nametsxt({ name });
+        await tsxt.nametsxt({ name });
         res.json({ mgs: "Todoname This OK :" });
     }
     catch (err) {
         next(err);
     }
-});
+};
 exports.api = api;
-const showapitodo = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+const showapitodo = async (req, res, next) => {
     try {
-        const rs = yield tsxt.showdatatodo();
+        const rs = await tsxt.showdatatodo();
         res.json({ rs });
     }
     catch (err) {
         next(err);
     }
-});
+};
 exports.showapitodo = showapitodo;
